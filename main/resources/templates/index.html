@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+ <html xmlns:th="https://www.thymeleaf.org">
+     <head>
+         <meta charset="UTF-8">
+         <meta name="viewport" content="width=device-width, initial-scale=1">	
+         <title>NAGOYAMESHI</title>	
+     </head>
+     <body>
+		  <!-- ヘッダー -->
+             <div th:replace="~{fragment :: header}"></div>
+          <main>
+             <div class="d-flex justify-content-center">                                            
+                         <form method="get" th:action="@{/food}" class="mb-5 nagoyameshi-search-form">
+                             <div class="input-group">
+                                 <input type="text" class="form-control" name="keyword" th:value="${keyword}" placeholder="店名・料理名">
+                                 <button type="submit" class="btn text-white shadow-sm nagoyameshi-btn">検索</button> 
+                             </div>               
+                         </form>                        
+                     </div>                                                                                                  
+                                                      
+                     <h2 class="text-center mb-3">新着</h2>
+                     <div class="row row-cols-lg-5 row-cols-2 g-3 mb-5">                                        
+                         <div class="col" th:each="newFood : ${newFood}">
+                             <a th:href="@{/food/__${newFood.getId()}__}" class="link-dark nagoyameshi-card-link">
+                                 <div class="card h-100">                                                                        
+                                     <img th:if="${newFood.getImageName()}" th:src="@{/storage/__${newFood.getImageName()}__}" class="card-img-top nagoyameshi-vertical-card-image" alt="店舗画像">                                     
+                                     <img th:unless="${newFood.getImageName()}" th:src="@{/images/noImage.png}" class="card-img-top nagoyameshi-vertical-card-image" alt="NO IMAGE">                                                                                                                        
+                                     <div class="card-body">                                    
+                                         <h3 class="card-title" th:text="${newFood.getName()}"></h3>
+                                         <p class="card-text mb-1">
+                                             <small class="text-muted" th:text="${newFood.getAddress()}"></small>                                            
+                                         </p>
+                                         <p class="card-text">
+                                             <span th:text="${#numbers.formatInteger(newFood.getPrice(), 1, 'COMMA') + '円'}"></span>                                            
+                                         </p>                                    
+                                     </div>
+                                 </div>    
+                             </a>            
+                         </div>                                               
+                     </div>
+                     
+                     <div class="row justify-content-center">
+                         <div class="col-xl-5 col-lg-6 col-md-8">                    
+                     
+                             <h2 class="text-center mb-3">カテゴリから探す</h2>                                        
+                              
+                             <table class="table">
+                                 <tbody>                                                     
+                                     <tr>
+                                         <th>和食</th>
+                                         <td>
+                                             <a th:href="@{/food?area=海鮮}" class="me-2">海鮮</a>
+                                             <a th:href="@{/food?area=天ぷら}" class="me-2">天ぷら</a>
+                                             <a th:href="@{/food?area=丼ぶり}" class="me-2">丼ぶり</a>
+                                             <a th:href="@{/food?area=鍋}" class="me-2">鍋</a>
+                                             <a th:href="@{/food?area=揚げ物}" class="me-2">揚げ物</a>
+                                             <a th:href="@{/food?area=焼肉}">焼肉</a>
+                                         </td>                                     
+                                     </tr>  
+                                     <tr>
+                                         <th>中華</th>
+                                         <td>
+                                             <a th:href="@{/food?area=ラーメン}" class="me-2">ラーメン</a>
+                                             <a th:href="@{/food?area=チャーハン}" class="me-2">チャーハン</a>
+                                             <a th:href="@{/food?area=天津飯}" class="me-2">天津飯</a>
+                                             <a th:href="@{/food?area=麻婆豆腐}" class="me-2">麻婆豆腐</a>
+                                             <a th:href="@{/food?area=餃子}" class="me-2">餃子</a>
+                                             <a th:href="@{/food?area=北京ダック}">北京ダック</a>
+                                         </td>                                     
+                                     </tr>  
+                                     <tr>
+                                         <th>洋食</th>
+                                         <td>
+                                             <a th:href="@{/food?area=ステーキ}" class="me-2">ステーキ</a>
+                                             <a th:href="@{/food?area=ハンバーグ}" class="me-2">ハンバーグ</a>
+                                             <a th:href="@{/food?area=オムライス}" class="me-2">オムライス</a>
+                                             <a th:href="@{/food?area=グラタン}" class="me-2">グラタン</a>
+                                             <a th:href="@{/food?area=パスタ}" class="me-2">パスタ</a>
+                                             <a th:href="@{/food?area=ピザ}">ピザ</a>                                    
+                                         </td>                                     
+                                     </tr>                                                                                                                                                                                                                                                                                                                                                            
+                                 </tbody>
+                             </table>  
+                         </div>
+                     </div>  
+               </main>  
+     </body>
+ </html>
